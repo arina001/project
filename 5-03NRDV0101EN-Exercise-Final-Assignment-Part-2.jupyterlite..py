@@ -142,7 +142,7 @@ def update_output_container(selected_statistics,input_year):
         # grouping data for plotting
 
         yearly_rec= output_data.groupby('Year')['Automobile_Sales'].mean().reset_index()
-    
+
         # Plotting the line graph
         R_chart1 = dcc.Graph(
             figure=px.line(yearly_rec,
@@ -190,9 +190,9 @@ def update_output_container(selected_statistics,input_year):
             html.Div(className='chart-item', children=[html.Div(children=R_chart3),html.Div(children=R_chart4)],style={'display': 'flex'})
         ]
     # TASK 2.6: Create and display graphs for Yearly Report Statistics
-    # Yearly Statistic Report Plots    
+    # Yearly Statistic Report Plots
     elif (input_year and selected_statistics=='Yearly Statistics') :
-        output_data = data[data['Year'] == input_year] # name it the same - then copy-paste code above
+        output_data = data[data['Year'] == input_year] # name it output_data  - then copy-paste code above instead of having a # name yearly statistics
         #plot 1 Yearly Automobile sales using line chart for the whole period.
         year_sales = data.groupby('Year')['Automobile_Sales'].mean().reset_index()
         Y_chart1 = dcc.Graph(
@@ -202,12 +202,12 @@ def update_output_container(selected_statistics,input_year):
             title="Average Number of Automobile Sold between 1980 and 2024"
             )
         )
-            
+
         # Plot 2 Total Monthly Automobile sales using line chart. I THINK BAR IS BETTER
         month_sales = data.groupby('Month')['Automobile_Sales'].sum().reset_index()
         ordered_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        
+
         Y_chart2 = dcc.Graph( figure=px.bar(month_sales,
             x='Month',
             y='Automobile_Sales',
@@ -232,6 +232,8 @@ def update_output_container(selected_statistics,input_year):
             html.Div(className='chart-item', children=[html.Div(children=Y_chart1),html.Div(children=Y_chart2)],style={'display': 'flex'}),
             html.Div(className='chart-item', children=[html.Div(children=Y_chart3),html.Div(children=Y_chart4)],style={'display': 'flex'})
         ]
+    else:
+        return None
 
 # Run the Dash app
 if __name__ == '__main__':
